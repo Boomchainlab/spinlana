@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import AuthProvider from '@/components/providers/AuthProvider';
+import { Web3Provider } from '@/components/providers/Web3Provider';
 
 const geistSans = Geist({ subsets: ['latin'] });
 const geistMono = Geist_Mono({ subsets: ['latin'] });
@@ -34,16 +35,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.className} ${geistMono.className} bg-background text-foreground`}>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <Toaster />
-        </AuthProvider>
+        <Web3Provider>
+          <AuthProvider>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+            <Toaster />
+          </AuthProvider>
+        </Web3Provider>
       </body>
     </html>
   );
